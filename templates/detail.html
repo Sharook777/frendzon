@@ -1,0 +1,68 @@
+
+{% extends 'list.html' %}
+
+{% block content %} 
+
+<div class="container-fluid">
+
+ <div class="col-sm-8 col-sm-offset-1">
+ <div class="panel panel-default" style="background-color:white">
+
+ 	
+	{% if object.image %}
+		<img class="img-responsive" src="{{ object.image.url }}">
+	{% endif %}
+	 <h2 class="panel-heading">
+ 	<a href="{{ object.get_absolute_url }}">  {{ object.user.get_full_name }}</a>	
+<small> Post on: {{ object.timestamp }} </small> </h2>
+	<h3 class="panel-body"> {{ object.content|linebreaks }}</h3>
+	
+
+	<div class="panel-body">
+		{{ likes }}<a class="btn" href="{% url 'like' object.pk %}">
+		{% if liked %} <span class="fa fa-2x fa-thumbs-down"></span>
+		{% else %} <span class="fa fa-2x fa-thumbs-up"> </span> {% endif %}</a>
+			  
+			  {% if object.comments == 0 %} |  <span class="fa fa-2x fa-comment" style="color:#337AB7;"> </span>  |
+			  {% else %} |  {{ object.comments }} <span class="fa fa-2x fa-comment" style="color:#337AB7;"> </span>  |
+			  {% endif %}
+			  
+			  {% if object.user == user %}
+			  	<a class="btn" href="{% url 'update' object.pk %}">  <span class="fa fa-2x fa-pencil"></span></a> |
+			  	<a class="btn" href="{% url 'delete' object.pk %}">  <span class="fa fa-2x fa-trash"></span></a>	|
+			  {% endif %} 
+			  <hr/></div>
+		
+	<div class="container-fluid">
+		{% for comment in comments %}
+			<blockquote>
+			<h2>{{ comment.user }}</h2></hr>
+				<p>{{ comment.content }}</p>
+			{% if comment.user == user %}
+			  	 |<a class="btn" href="{% url 'comment_del' comment.id %}">  <span class="fa fa-2x fa-trash"></span></a> |
+			  {% endif %}
+				
+			</blockquote><hr>
+				{% endfor %}
+	<div class="panel panel-default panel-feed">
+	<div class="panel-body">
+		<div class="" style="dispaly:block;">
+			<h4> New Comment</h4>
+			<form role="compose" action="{% url 'comment' object.pk %}" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="form-group">
+					<textarea class="form-control" rows="2" name="post" autocomplete="off" required="True"></textarea>
+				</div>
+				<!--  <div class="form-group">
+					<input class=""  type="file" name="image"></input>
+				</div>-->
+				<div class="form-group">
+					<button class="btn btn-primary"><span class="fa fa-comment"></span>&nbsp;Comment</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

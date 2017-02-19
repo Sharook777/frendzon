@@ -1,0 +1,47 @@
+
+
+<nav class="navbar navbar-default navbar-fixed-top  ">
+	<div class="container-fluid">
+	<div class="navbar-header">
+		<div class="navbar-brand">
+		
+			<!--  <i class="fa fa-3X fa-bolt"></i> -->frend<i class="fa fa-1X fa-bolt"></i>on
+	</div>	     </div></div>
+</nav>
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+	
+
+<div class="container">
+<div class="row">
+<div class=col-sm-6>
+<img class="img-responsive" src="{% static 'img/social.png' %}"></div>
+<!--  <div class="col-sm-6">
+<p> We Inviting You To World Of Social</p><br>
+<p> Share your ideas memories life events, Always connect with frIends</p>
+<p> You are not a member Join Now </p>
+</div>-->
+<div class="col-sm-6">
+<div class="jumbotron">
+	<h2 class="">{{ title }}</h2><hr/>
+	<form action="." method="POST">	{% csrf_token %}
+		{{ form|crispy }}
+		<button class="btn btn-info" type="submit" value="{{ title }}">{{ title }}</button>
+	
+	</form>
+	{% if link %}
+		<a class="btn btn-success" href="/register/"><span class="fa fa-user" ></span>&nbsp;Sign Up</a>
+		<a class="link" href="">Forgot Password</a></br>
+	{% endif %}
+</div></div></div></div>
+
+
+	<div class="container">
+         <p>&copy; 2017 www.frendzon.com </p>
+</div>
+{% endblock %}

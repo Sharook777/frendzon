@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<header>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" >
+	<div class="container">
+
+	<!-- Logo -->
+		<div class="navbar-header">
+			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#menu">
+				<span class="sr-only"> Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">frend<i class="fa fa-1X fa-bolt"></i>on</a>
+		</div>
+
+	<!-- items -->
+		<div class="collapse navbar-collapse" id="menu">
+			<ul class="nav navbar-nav">
+				<li class="{{ home }}">
+					<a href="{% url 'list' %}">
+					<span class="fa fa-home" aria-hidden="true"></span>&nbsp;Home
+					</a>
+				</li>
+
+				<li class="{{ post }}">
+					<a href="{% url 'profile' profile.slug %}">
+					<span class="fa fa-book" aria-hidden="true"></span>&nbsp;Profile
+					</a>
+				</li>
+				<li class="{{ chat }}">
+					<a href="{% url 'chat' %}">
+					<span class="fa fa-comment" aria-hidden="true"></span>&nbsp;Chat
+					</a>
+				</li>
+			</ul>
+			<div class="col-sm-4">
+			<form class="navbar-form navbar-left" role="search" method="GET" action='{% url "list" %}' >
+	     		<div class="input-group" style="width:210px;">
+						<input class="form-control" type="text" name="q" placeholder="search" value='{{ request.GET.q }}'>
+						<span class="input-group-btn">
+						<!--input class="btn btn-default" type="submit" value="Search" -->
+						<button class="btn btn-success" type="submit"><span class="fa f-10X fa-search"></span></button></span>
+	     			</div></form></div>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a> <span class="fa fa-user" aria-hidden="true"></span>&nbsp;{{ user.username }}</a>
+				</li>
+				<li>
+					<a href="{% url 'logout' %}">
+					<span class="fa fa-power-off" aria-hidden="true"></span>&nbsp;Logout
+					</a>
+				</li>
+			</ul>
+		</div>
+
+	</div>
+</nav></header>
+
+
+<div class="container">
+<div class="row">
+<div class="col-sm-4">
+<div class="thumbnail" style="max-width:200px;">
+{% if profile.profile_pic %}
+	<img class="img-responsive"  style="background-color:blue;min-height:100px;" src={{ profile.profile_pic.url}}>
+{% else %}
+	{% if profile.gender == "M" %}
+		<img class="img-responsive" src="{% static 'img/icon2.png' %}">
+	{% elif profile.gender == "F" %}
+		<img class="img-responsive" src="{% static 'img/icon1.jpg' %}">
+	{% endif %}{% endif %}
+<h3 class="caption ">{{ profile.firstname }} {{ profile.lastname }}</h3>
+<h5 class="caption"> {% if profile.status %}{{ profile.status }}{% endif %} </h5>
+
+</div>
+</div>
+<div class="col-sm-6" >
+{% block compose %}
+{% endblock %}
+</div>
+</div></div>
+
+<div class="container">
+<div class="col-sm-10 bot-mar">
+
+{% block menu %}
+  <h1 class="page-header">Feeds</h1>
+{% endblock%}</div>
+
+{% block list %}
+     {% for obj in objects %}
+     {% if obj.timestamp >= user.date_joined %}
+	<div class="row">
+		<!-- <div class="col-sm-6 col-md-4">-->
+	   <div class="col-md-10">
+ 	       <div class="thumbnail">
+ 	       	  <div class="caption">
+ 	       	  		<a href="{{ obj.get_absolute_url }}"><h3>{{ obj.user.get_full_name }}</h3></a>
+			
+ 	       	  </div>
+		  {% if obj.image %}
+			<img class="img-responsive" src="{{ obj.image.url }}">
+		  {% endif %}
+ 		<div class="caption">
+			<h3>{{ obj.content|linebreaks|safe|truncatechars:100 }}</h3>
+			<small>{{  obj.timestamp|timesince }} ago </small> 
+			<h5><a href="{% url 'detail' obj.pk %}" class="link" role="button">View |</a>
+			
+			{{ obj.likes }}<a class="btn" href="{% url 'like' obj.pk %}">
+			  {% if obj.pk in like %} <span class="fa fa-2x fa-thumbs-down"> </span>
+			  {% else %} <span class="fa fa-2x fa-thumbs-up"> </span> {% endif %}</a>
+			  
+			  
+			  
+			  
+			  {% if obj.comments == 0 %}  | Comment
+			  {% elif obj.comments == 1 %} | {{ obj.comments }} Comment
+			  {% else %} | {{ obj.comments }} Comments
+			  {% endif %}</h5>
+           {% endif %}</div>
+
+	</div></div></div>
+		
+
+     {% endfor %}
+
+<div class="pagination">
+   <span class="step-links">
+
+	{% if objects.has_next %}
+		<a class="btn-custom " href="?{{ page_request }}={{ objects.next_page_number }}
+			{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"> See More Post</a>
+	{% endif %}
+   </span>
+</div></div>
+
+
+{% endblock %}
+
+<div class="copyright">
+	<div class="container">
+		<div class="row"><a class="link" href="{% url 'settings' %}"><span class="fa fa-gear"></span> Account Settings</a></div>
+		<div class="row"><a class="link" href="{% url 'logout' %}"><span class="fa fa-power-off"></span> Logout({{ user.username}})</a></div>
+		<div class="row"><a class="link" href="{% url 'bug' %}"><span class="fa fa-bug"></span> Report Problem</a></div>
+		<!--  <div class="row"><a class="link" href=""><span class="fa fa-trash"></span> Remove Account</a></div> -->
+        <div class="row"><p class="pull-right">&copy; 2017 www.frendzon.com</p></div>
+</div></div>
+
+{% endblock %}

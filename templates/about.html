@@ -1,0 +1,33 @@
+{% extends 'profile.html' %}
+
+
+{% block list %}
+</div>
+<div class="container">
+<div class="panel panel-default panel-feed">
+	<div class="panel-body">
+		<div >
+			<h4> Name</h4> {{ profile.firstname }}&nbsp;{{ profile.lastname}}
+		</div><hr/>
+		<div >
+			<h4> Gender</h4> {% if profile.gender == "M" %}&nbsp;Male{% else %} &nbsp;Female{% endif %}
+		</div><hr/>
+		<div >
+			<h4> Email</h4> {{ profile.mail_id }}
+		</div><hr/>
+		<div >
+			<h4> DOB</h4> {{ profile.dob }}
+		</div><hr/>
+		<div >
+			<h4> Phone </h4> {{ profile.phone_no }}
+		</div><hr/>
+		<div >
+			<h4>Joined</h4> {{ profile.timestamp }}&nbsp;
+		</div><hr/>
+	</div>
+	
+</div>
+
+</div>
+
+{% endblock %}

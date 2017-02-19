@@ -1,0 +1,27 @@
+
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container-fluid">
+	<div class="page-header">
+		<i class="fa fa-4x fa-pencil"></i><h1 style="display:inline;"> {{ title }}</h1>
+	</div>
+	<div class="row" style="margin-top:2em;">
+		<div class="col-sm-4">
+			<div class="list-group">
+				<h3 style="margin-top:0;">{{ name }}</h3>
+	<form action="" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ form|crispy }}
+		<input type="submit" class="btn btn-default btn-cancel-compose" value="Save">
+	</form>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+
+{% endblock %}

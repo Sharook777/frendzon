@@ -1,0 +1,20 @@
+
+{% extends 'profile.html' %}
+
+
+{% block list %}
+
+<div class="row">
+{% for i in image %}
+{% if i.user == profile.user %}
+{% if i.image %}
+
+	<div class="col-sm-4">
+		<div class="thumbnail">
+			<a href="{{ i.image.url }}"><img class="img-responsive" src="{{ i.image.url }}" style="width:100%"> </img></a>
+		</div>
+	</div>
+{% endif%}
+{% endif %}
+{% endfor %}</div></div>
+{% endblock %}

@@ -1,0 +1,81 @@
+
+	/*h1{
+		color:blue;
+	}*/
+
+	h1:hover{
+		color:red;
+	}
+	/* body{
+		background:url('../img/social.png')fixed; 
+	}*/
+	body{
+		margin-top:70px !important;
+		/*background-color:#EFE8F1 !important ;*/
+	}
+	
+	.navbar {
+		/*min-height:60px;*/
+		margin-bottom:20px;
+	}
+	.navbar-brand {
+		margin-left: 15px;
+	}
+	
+	.navbar-default {
+		border-radius:0px;
+		color:blue ;
+		background-color:red;
+	}
+	.navbar-custom{
+		color:blue ;
+		background-color:red;
+	}
+	.profile{
+		height=200;
+		width=200;
+	}
+	.copyright{
+		background:#E2DFE2;
+		margin-top:20px;
+		height:100%;
+		line-height:60px;
+		overflow:hidden;
+		posiotion:relative;
+	}
+	.copyright p{
+		text-align:center;
+		margin:10px;
+		color:black;
+		line-height:10px;
+	}
+	.copyright a{
+		dispaly:inline-block;
+		color:black;
+		line-height:0px;
+	}
+	.copyright a:hover{
+		color:blue;
+		line-height:60px;
+	}
+	.btn-custom{
+		background-color:#5F5FE4;
+		color:white;
+		padding:8px;
+		text-align:center;
+		text-decoration:none;
+		display:inline-block;
+	}
+	.bot-mar{
+		margin-bottom:10px;
+	}
+	
+	.thumbnail > img {
+		margin-right: auto;
+		margin-left: 0;
+}
+	div i:hover{
+		color:#8000ff;
+	}
+
+	

@@ -1,0 +1,23 @@
+{% extends 'list.html' %}
+
+{% block menu %}
+<main>
+	<div class="page-header">
+		<i class="fa fa-4x fa-spin fa-gear"></i><h1 style="display:inline;"> Account Settings</h1>
+	</div>
+	<div class="row" style="margin-top:2em;">
+		<div class="col-sm-4">
+			<div class="list-group">
+				<a href="{% url 'settings' %}" class="list-group-item {{ edit }}">Edit Profile </a>
+				<a href="{% url 'pro_pic' %}" class="list-group-item {{ picture }} ">Change Profile Picture</a>
+				<a href="{% url 'status' %}" class="list-group-item {{ status }}">Change Status</a>
+				<a href="{% url 'password' %}" class="list-group-item {{ password }}">Change Password</a>
+			</div>
+		</div>
+		<div class="col-sm-8">
+		{% block settings%}
+		{% endblock %}
+		</div>
+	</div>
+</main>
+{% endblock %}
